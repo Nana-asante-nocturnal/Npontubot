@@ -1,115 +1,118 @@
 <?php
 $botName = "NpontuChat";
-$features = [
-    ['icon' => '💬', 'name' => 'Chat'],
-    ['icon' => '❓', 'name' => 'Help'],
-    ['icon' => '🧠', 'name' => 'Learn'],
-];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title><?php echo $botName; ?> - ChatBot</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #040615;
-            color: #b3e600;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-        .container {
-            background-color: #0a1128;
-            border-radius: 20px;
-            padding: 40px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-        .ai-avatar {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #b3e600, #8ca500);
-            border-radius: 50%;
-            margin: 0 auto 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 60px;
-            color: #040615;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .chat-input-container {
-            display: flex;
-            margin: 20px 0;
-        }
-        .chat-input {
-            flex-grow: 1;
-            padding: 15px;
-            background-color: #0c1a3a;
-            border: none;
-            border-radius: 30px 0 0 30px;
-            color: #b3e600;
-        }
-        .send-button {
-            background-color: #b3e600;
-            color: #040615;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 0 30px 30px 0;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .send-button:hover {
-            background-color: #8ca500;
-        }
-        .features {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
-        .feature {
-            background-color: #0c1a3a;
-            padding: 15px;
-            border-radius: 15px;
-            width: 22%;
-            transition: transform 0.3s;
-        }
-        .feature:hover {
-            transform: translateY(-10px);
-        }
-        .feature-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?php echo $botName; ?> - Chat UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
+                  url('bg.png') no-repeat center center fixed; /* Background image with 75% opacity overlay */
+      background-size: cover; /* Ensure the image covers the entire viewport */
+    }
+    .chat-container {
+      width: 360px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+    }
+    .chat-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .chat-header span {
+      margin-left: 10px; /* Added spacing for bot name */
+    }
+    .chat-content {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+      min-height: 300px; /* Set a minimum height */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .chat-bubble {
+      max-width: 80%;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 10px;
+    }
+    .user-message {
+      background-color: #007bff;
+      color: #fff;
+      align-self: flex-end;
+    }
+    .bot-message {
+      background-color: #e0e0e0;
+      color: #333;
+      align-self: flex-start;
+    }
+    .chat-input-container {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      background-color: #f5f5f5;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      outline: none;
+    }
+    .send-button {
+      margin-left: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #007bff;
+      font-size: 20px;
+    }
+    .powered-by-text {
+      text-align: center;
+      color: #555; /* Subtle black color */
+      font-size: 12px;
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="ai-avatar">AI</div>
-        
-        <h1>Welcome to <?php echo $botName; ?>!</h1>
-        <p>Your intelligent AI companion</p>
-        
-        <form class="chat-input-container">
-            <input type="text" class="chat-input" placeholder="Type your message here...">
-            <button type="submit" class="send-button">Send</button>
-        </form>
-        
-        <div class="features">
-            <?php foreach($features as $feature): ?>
-                <div class="feature">
-                    <div class="feature-icon"><?php echo $feature['icon']; ?></div>
-                    <div><?php echo $feature['name']; ?></div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+  <div class="chat-container">
+    <div class="chat-header">
+      <img src="picture.png" alt="Profile">
+      <span><?php echo $botName; ?></span>
     </div>
+    <div class="chat-content">
+      <!-- Chat messages dynamically added here -->
+    </div>
+    <div class="chat-input-container">
+      <input type="text" class="chat-input" placeholder="Type a message...">
+      <button class="send-button">&#9993;</button> <!-- Paper plane icon -->
+    </div>
+    <div class="powered-by-text">Powered by Npontu</div>
+  </div>
 </body>
 </html>
