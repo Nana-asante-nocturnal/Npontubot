@@ -12,15 +12,19 @@ class Config:
     SQLALCHEMY_DATABASE_URI = "sqlite:///chatbot.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     RASA_SERVER_URL = "http://localhost:5005/model/parse"
-    API_KEY = "AIzaSyAt4h_9MZBmzagX-rDpRs2de5vFzw8jkTo"  # Replace with an actual secret key for production
+    API_KEY = "AIzaSyAt4h_9MZBmzagX-rDpRs2de5vFzw8jkTo"  # Replace with a secure key in production
 
 
 # Logging setup
-logging.basicConfig(filename="chatbot.log", level=logging.INFO)
+logging.basicConfig(filename="chatbot.log", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Extensions
 db = SQLAlchemy()
 auth = HTTPTokenAuth(scheme="Bearer")
+limiter = Limiter(
+    key_func=get_remote_address,  # Use IP address for rate-limiting
+    default_limits=["100 per day", "30 per hour"]  # Global rate limits
+)
 
 
 def create_app():
@@ -30,48 +34,49 @@ def create_app():
     # Initialize SQLAlchemy
     db.init_app(app)
 
-    # Flask-Limiter setup
-    limiter = Limiter(
-        app=app,  # Attach limiter to the Flask app
-        key_func=get_remote_address,
-        default_limits=["100 per day", "30 per hour"]  # Global limits
-    )
+    # Attach Flask-Limiter
+    limiter.init_app(app)
 
     # Token Authentication
     @auth.verify_token
     def verify_token(token):
-        # Verify token matches API key
-        return token == Config.API_KEY
+        if token == Config.API_KEY:
+            return True
+        return False
 
     # Blueprint for chat routes
     bp = Blueprint("routes", __name__)
 
     @bp.route("/api/v1/chat", methods=["POST"])
     @auth.login_required
-    @limiter.limit("10 per minute")  # Limit specific to this route
+    @limiter.limit("10 per minute")  # Route-specific limit
     def chat():
         # Parse JSON request
         data = request.get_json()
-        user_message = data.get("message")
+        if not data or "message" not in data:
+            abort(400, description="Invalid request payload.")
+
+        user_message = data["message"]
 
         # Input validation
         if not user_message or len(user_message) > 200:
-            abort(400, description="Invalid message format.")
+            abort(400, description="Invalid message format. Must be 1-200 characters.")
 
         try:
             # Send message to Rasa server
-            response = requests.post(Config.RASA_SERVER_URL, json={"text": user_message})
+            response = requests.post(Config.RASA_SERVER_URL, json={"text": user_message}, timeout=5)
             response.raise_for_status()  # Raise an error for non-2xx responses
             nlp_response = response.json()
         except requests.exceptions.RequestException as e:
             logging.error(f"Error contacting Rasa server: {e}")
-            nlp_response = {"error": "Failed to process message"}
+            abort(500, description="Failed to process message due to internal error.")
 
-        logging.info(f"Chat processed: {user_message}")
+        logging.info(f"User message: {user_message} | Rasa response: {nlp_response}")
         return jsonify({"response": nlp_response})
 
     # Register blueprint
     app.register_blueprint(bp)
+
     return app
 
 
