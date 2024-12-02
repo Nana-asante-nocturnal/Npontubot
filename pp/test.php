@@ -352,7 +352,7 @@ function toggleSounds() {
   <!-- Chat UI -->
   <div class="chat-container">
   <div class="chat-header">
-  <div class="dropdown" class="dropbtn">
+  <div class="dropdown" class="dropbtn" style="margin-left: 10px;">
   ...
   <div class="dropdown-content">
   <div class="dropdown-item" onclick="sendProposal()"> <a href="#" style="font-size: 13px;">📄SEND PROPOSAL</a></div>
@@ -360,7 +360,7 @@ function toggleSounds() {
   </div>
 </div>
   <img src="picture.png" alt="Profile">
-  <span style="margin-left: 120px; cursor: pointer;" onclick="toggleChat()">—</span>
+  <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChat()">—</span>
 </div>
 
    
