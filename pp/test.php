@@ -218,9 +218,10 @@ $botName = "NpontuChat";
       margin: 5px 0;
       border-radius: 10px;
       word-wrap: break-word;
+      background-color: #8E8E8E;
     }
     .user-message {
-      background-color: #007bff;
+      background-color: #8E8E8E;
       color: #fff;
       align-self: flex-end;
     }
@@ -230,6 +231,10 @@ $botName = "NpontuChat";
       align-self: flex-start;
     }
   
+    .chat-input::placeholder {
+  color: white; /* Set placeholder color to white */
+  opacity: 0.7; /* Optional: Make placeholder text slightly translucent */
+}
     .chat-input-container {
   display: flex;
   align-items: center;
@@ -242,6 +247,7 @@ $botName = "NpontuChat";
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 20px;
+  background-color: #8E8E8E;
 }
 
     .voice-input-button {
@@ -279,6 +285,9 @@ $botName = "NpontuChat";
   </style>
 
 <script>
+
+    
+
   function toggleChat() {
   const chatContainer = document.querySelector('.chat-container');
   if (!chatContainer) {
@@ -293,12 +302,37 @@ $botName = "NpontuChat";
   }
 }
 
+
+
 // Function to toggle the navbar visibility
 function toggleNavbar() {
   const navbarList = document.getElementById('navbar-list');
   // Add or remove the "show" class to display or hide the menu
   navbarList.classList.toggle('show');
 }
+
+function toggleChat() {
+      const introChat = document.querySelector('.intro-chat-container');
+      const mainChat = document.querySelector('.main-chat-container');
+
+      // Show the intro chat if both are hidden
+      if (introChat.style.display === 'none' && mainChat.style.display === 'none') {
+        introChat.style.display = 'block';
+      } else {
+        // Toggle visibility of both containers
+        introChat.style.display = 'none';
+        mainChat.style.display = 'none';
+      }
+    }
+
+    function showMainChat() {
+      const introChat = document.querySelector('.intro-chat-container');
+      const mainChat = document.querySelector('.main-chat-container');
+
+      // Hide the intro container and show the main chat
+      introChat.style.display = 'none';
+      mainChat.style.display = 'block';
+    }
 
 // Function to toggle the dropdown visibility
 function toggleDropdown() {
@@ -338,7 +372,22 @@ function toggleSounds() {
   <a href="#" class="cta-button">Let’s Talk</a>
 </div>
 
-
+<!-- Intro Chat Container -->
+<div class="intro-chat-container chat-container" style="display: none;">
+    <div class="chat-header" style="background-color: #5CAB3F; color: white; text-align: center; padding: 10px;">
+      <img src="picture.png" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+      <h4>NpontuChat</h4>
+    </div>
+    <div class="chat-content" style="padding: 20px; text-align: center; font-size: 16px;">
+      <p>Boost Your Business with us<br>
+      From IT Consultancy and Managed Services to Big Data, AI to Platform and App Development! Do you want more information?</p>
+      <p>My name is Peter Annan, and I am here for you.</p>
+    </div>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <button onclick="showMainChat()" style="padding: 10px 20px; background-color: #E8E8E8; color: black; border: none; border-radius: 5px; cursor: pointer;">Chat with Me</button>
+      <button style="padding: 10px 20px; background-color: #D10505; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply Now</button>
+    </div>
+  </div>
 
  <!-- Chat Popup Button -->
  <div class="chat-popup">
@@ -350,8 +399,9 @@ function toggleSounds() {
 
     
   <!-- Chat UI -->
-  <div class="chat-container">
-  <div class="chat-header">
+ <!-- Main Chat Container -->
+ <div class="main-chat-container chat-container" style="display: none;">
+ <div class="chat-header">
   <div class="dropdown" class="dropbtn" style="margin-left: 10px;">
   ...
   <div class="dropdown-content">
@@ -359,11 +409,9 @@ function toggleSounds() {
   <div class="dropdown-item" onclick="toggleSounds()"> <a href="#" style="font-size: 13px;" >🔔 SOUNDS</a> </div>
   </div>
 </div>
-  <img src="picture.png" alt="Profile">
-  <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChat()">—</span>
-</div>
-
-   
+      <img src="picture.png" alt="Profile">
+      <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChat()">—</span>
+    </div>
     <div class="chat-content">
       <div class="chat-bubble bot-message">
         Welcome! Please select an option above to get started:
@@ -373,7 +421,7 @@ function toggleSounds() {
       <input type="text" class="chat-input" placeholder="Type a message...">
       <button class="send-button">&#9993;</button>
       <button class="voice-input-button" aria-label="Voice Input">🎤</button>
-    <span class="voice-status" aria-live="polite"></span>
+      <span class="voice-status" aria-live="polite"></span>
     </div>
     <div class="powered-by-text">Powered by Npontu</div>
   </div>
