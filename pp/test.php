@@ -23,6 +23,15 @@ $botName = "NpontuChat";
       position: fixed;
       bottom: 20px;
       right: 20px;
+      margin-right: 50px;
+      border-radius: 50%;
+    }
+    .chat-popup img{
+      width: 80px;
+  height: 80px;
+  border-radius: 50%; /* Ensures the image is a perfect circle */
+  border: 3.5px solid #000; /* Correct way to add a visible black border */
+  object-fit: cover; /* Ensures the image does not stretch or appear elliptical */
     }
 
     .chat-button {
@@ -102,14 +111,18 @@ $botName = "NpontuChat";
       display: flex;
       align-items: center;
       padding: 10px;
-      background-color: #007bff;
-      color: #fff;
+      background-color: #fff;
+      color: #000;
     }
     .chat-header img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
+      margin-left: 138px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Ensures the image is a perfect circle */
+  border: 3px solid #000; /* Correct way to add a visible black border */
+  object-fit: cover; /* Ensures the image does not stretch or appear elliptical */
+}
+
     .chat-header span {
       margin-left: 10px;
     }
@@ -241,15 +254,21 @@ $botName = "NpontuChat";
 
  <!-- Chat Popup Button -->
  <div class="chat-popup">
-    <button class="chat-button" onclick="toggleChat()">💬</button>
-  </div>
+  <button class="chat-button" onclick="toggleChat()">
+    <img src="picture.png" alt="Profile" class="chat-toggle-image">
+  </button>
+</div>
+
+
     
   <!-- Chat UI -->
   <div class="chat-container">
-    <div class="chat-header">
-      <img src="picture.png" alt="Profile">
-      <span><?php echo $botName; ?></span>
-    </div>
+  <div class="chat-header">
+  <span >...</span>
+  <img src="picture.png" alt="Profile">
+  <span style="margin-left: 120px; cursor: pointer;" onclick="toggleChat()">——</span>
+</div>
+
     <div class="chat-buttons-container">
       <button class="chat-button" onclick="handleButtonClick('FAQ')">FAQ</button>
       <button class="chat-button" onclick="handleButtonClick('Help')">Help</button>
