@@ -16,7 +16,8 @@ class Config:
 
 
 # Logging setup
-logging.basicConfig(filename="chatbot.log", level=logging.INFO)
+logging.basicConfig(filename="chatbot.log", level=logging.INFO, 
+                    format="%(asctime)s [%(levelname)s] %(message)s")
 
 # Extensions
 db = SQLAlchemy()
@@ -72,10 +73,16 @@ def create_app():
 
     # Register blueprint
     app.register_blueprint(bp)
+
+    # Log URL on app start
+    @app.before_first_request
+    def log_startup():
+        print(" * Running on http://127.0.0.1:8001/ (Press CTRL+C to quit)")
+
     return app
 
 
 # Entry point
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=True, host="0.0.0.0", port=8001)
+    app.run(debug=True, host="127.0.0.1", port=8001)
