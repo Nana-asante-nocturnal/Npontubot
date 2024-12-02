@@ -160,6 +160,39 @@ $botName = "NpontuChat";
       background-color: #fff;
       color: #000;
     }
+    /* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
     .chat-header img {
       margin-left: 138px;
   width: 40px;
@@ -286,6 +319,22 @@ function toggleNavbar() {
   navbarList.classList.toggle('show');
 }
 
+// Function to toggle the dropdown visibility
+function toggleDropdown() {
+  const dropdown = document.getElementById('dropdown-menu');
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+// Example functions for dropdown options
+function sendProposal() {
+  alert('SEND PROPOSAL clicked');
+}
+
+function toggleSounds() {
+  alert('SOUNDS clicked');
+}
+
+
 </script>
 
 
@@ -322,7 +371,13 @@ function toggleNavbar() {
   <!-- Chat UI -->
   <div class="chat-container">
   <div class="chat-header">
-  <span >...</span>
+  <div class="dropdown" class="dropbtn">
+  ...
+  <div class="dropdown-content">
+  <div class="dropdown-item" onclick="sendProposal()"> <a href="#" style="font-size: 13px;">📄SEND PROPOSAL</a></div>
+  <div class="dropdown-item" onclick="toggleSounds()"> <a href="#" style="font-size: 13px;" >🔔 SOUNDS</a> </div>
+  </div>
+</div>
   <img src="picture.png" alt="Profile">
   <span style="margin-left: 120px; cursor: pointer;" onclick="toggleChat()">——</span>
 </div>
