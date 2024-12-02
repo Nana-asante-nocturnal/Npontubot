@@ -48,51 +48,97 @@ $botName = "NpontuChat";
   justify-content: center;
 }
 
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-      background-color: #000;
-      color: #fff;
-    }
-    .navbar img {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-    }
-    .navbar ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .navbar ul li {
-      margin: 0 15px;
-    }
-    .navbar ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-    }
-    .navbar ul li a:hover {
-      color: #00ff00;
-    }
-    .navbar .cta-button {
-      background-color: #fff;
-      color: #097969;
-      border: 1px solid transparent;
-      border-radius: 5px;
-      padding: 8px 16px;
-      text-decoration: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .navbar .cta-button:hover {
-      background-color: #000;
-      border: 1px solid #fff;
-      color: #097969;
-    }
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+}
+
+.navbar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  margin: 0 15px;
+}
+
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navbar ul li a:hover {
+  color: #00ff00;
+}
+
+.navbar .cta-button {
+  background-color: #fff;
+  color: #097969;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navbar .cta-button:hover {
+  background-color: #000;
+  border: 1px solid #fff;
+  color: #097969;
+}
+
+/* Responsive styles */
+.navbar .hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar ul {
+    display: none; /* Hide navigation links initially */
+    flex-direction: column;
+    width: 100%;
+    background-color: #000;
+    position: absolute;
+    top: 60px; /* Adjust based on navbar height */
+    left: 0;
+    padding: 0;
+  }
+
+  .navbar ul.show {
+    display: flex; /* Show when toggled */
+  }
+
+  .navbar ul li {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .navbar .hamburger {
+    display: block; /* Show hamburger menu */
+  }
+}
+
+
+
     .chat-container {
   display: none;
   width: 400px;
@@ -232,6 +278,14 @@ $botName = "NpontuChat";
     chatContainer.style.display = 'none';
   }
 }
+
+// Function to toggle the navbar visibility
+function toggleNavbar() {
+  const navbarList = document.getElementById('navbar-list');
+  // Add or remove the "show" class to display or hide the menu
+  navbarList.classList.toggle('show');
+}
+
 </script>
 
 
@@ -239,18 +293,22 @@ $botName = "NpontuChat";
 <body>
   <!-- Navigation Bar -->
   <div class="navbar">
-    <img src="npontuLogo.png" alt="Npontu Technologies Logo">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Company</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Resources</a></li>
-      <li><a href="#">Partners</a></li>
-      <li><a href="#">Blog</a></li>
-      <li><a href="#">Jobs & Careers</a></li>
-    </ul>
-    <a href="#" class="cta-button">Let’s Talk</a>
-  </div>
+  <img src="npontuLogo.png" alt="Npontu Technologies Logo">
+  <!-- Hamburger Menu Button -->
+  <button class="hamburger" onclick="toggleNavbar()">☰</button>
+  <ul id="navbar-list">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Company</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Resources</a></li>
+    <li><a href="#">Partners</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Jobs & Careers</a></li>
+  </ul>
+  <a href="#" class="cta-button">Let’s Talk</a>
+</div>
+
+
 
  <!-- Chat Popup Button -->
  <div class="chat-popup">
@@ -295,6 +353,7 @@ $botName = "NpontuChat";
       const chatContent = document.querySelector('.chat-content');
       const chatContainer = document.getElementById('chatContainer');
 
+     
 
       // Speech Recognition Setup
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
