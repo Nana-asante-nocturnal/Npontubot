@@ -85,4 +85,7 @@ def create_app():
 # Entry point
 if __name__ == "__main__":
     app = create_app()
-    app.run(debug=True, host="127.0.0.1", port=8001)
+    host = "0.0.0.0"
+    port = 8001
+    print(f"Server is running on http://{host}:{port}")
+    app.run(debug=True, host=host, port=port)
