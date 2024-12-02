@@ -229,26 +229,7 @@ $botName = "NpontuChat";
       color: #333;
       align-self: flex-start;
     }
-    .chat-buttons-container {
-      display: flex;
-      justify-content: center;
-      padding: 10px;
-      background-color: #f5f5f5;
-      border-bottom: 1px solid #ddd;
-    }
-    .chat-button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 14px;
-      margin: 0 5px;
-    }
-    .chat-button:hover {
-      background-color: #0056b3;
-    }
+  
     .chat-input-container {
   display: flex;
   align-items: center;
@@ -379,13 +360,10 @@ function toggleSounds() {
   </div>
 </div>
   <img src="picture.png" alt="Profile">
-  <span style="margin-left: 120px; cursor: pointer;" onclick="toggleChat()">——</span>
+  <span style="margin-left: 120px; cursor: pointer;" onclick="toggleChat()">—</span>
 </div>
 
-    <div class="chat-buttons-container">
-      <button class="chat-button" onclick="handleButtonClick('FAQ')">FAQ</button>
-      <button class="chat-button" onclick="handleButtonClick('Help')">Help</button>
-    </div>
+   
     <div class="chat-content">
       <div class="chat-bubble bot-message">
         Welcome! Please select an option above to get started:
