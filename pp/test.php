@@ -282,6 +282,24 @@ $botName = "NpontuChat";
       font-size: 12px;
       margin: 10px 0;
     }
+
+
+    .signup-container input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #E8E8E8;
+  color: white;
+}
+
+.signup-container form label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
   </style>
 
 <script>
@@ -325,6 +343,24 @@ function toggleChat() {
       }
     }
 
+    function toggleChatMain(){
+      const introChat = document.querySelector('.intro-chat-container');
+      const mainChat = document.querySelector('.main-chat-container');
+
+      // Show the intro chat if both are hidden
+      if (introChat.style.display === 'none' && mainChat.style.display === 'none') {
+        introChat.style.display = 'block';
+      } else {
+        // Toggle visibility of both containers
+        introChat.style.display = 'none';
+        mainChat.style.display = 'none';
+      }
+    }
+    function handleSignupForm(event) {
+    event.preventDefault(); // Prevents page refresh
+    showMainChat(); // Opens the main chat container
+  }
+
     function showMainChat() {
       const introChat = document.querySelector('.intro-chat-container');
       const mainChat = document.querySelector('.main-chat-container');
@@ -333,6 +369,24 @@ function toggleChat() {
       introChat.style.display = 'none';
       mainChat.style.display = 'block';
     }
+
+    function showSignup() {
+  const introChat = document.querySelector('.intro-chat-container');
+  const signupContainer = document.querySelector('.signup-container');
+
+  // Hide the Intro Chat container and show the Sign-Up container
+  introChat.style.display = 'none';
+  signupContainer.style.display = 'block';
+}
+
+    function navigateToIntro() {
+  const signupContainer = document.querySelector('.signup-container');
+  const introChat = document.querySelector('.intro-chat-container');
+
+  // Hide the Sign-Up container and show the Intro Chat container
+  signupContainer.style.display = 'none';
+  introChat.style.display = 'block';
+}
 
 // Function to toggle the dropdown visibility
 function toggleDropdown() {
@@ -374,9 +428,16 @@ function toggleSounds() {
 
 <!-- Intro Chat Container -->
 <div class="intro-chat-container chat-container" style="display: none;">
-    <div class="chat-header" style="background-color: #5CAB3F; color: white; text-align: center; padding: 10px;">
-      <img src="picture.png" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-      <h4>NpontuChat</h4>
+<div class="chat-header" style="background-color:#5CAB3F;">
+  <div class="dropdown" class="dropbtn" style="margin-left: 10px; " >
+  ...
+  <div class="dropdown-content">
+  <div class="dropdown-item" onclick="sendProposal()"> <a href="#" style="font-size: 13px;">📄SEND PROPOSAL</a></div>
+  <div class="dropdown-item" onclick="toggleSounds()"> <a href="#" style="font-size: 13px;" >🔔 SOUNDS</a> </div>
+  </div>
+</div>
+      <img src="picture.png" alt="Profile">
+      <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChat()">—</span>
     </div>
     <div class="chat-content" style="padding: 20px; text-align: center; font-size: 16px;">
       <p>Boost Your Business with us<br>
@@ -384,8 +445,9 @@ function toggleSounds() {
       <p>My name is Peter Annan, and I am here for you.</p>
     </div>
     <div style="text-align: center; margin-bottom: 20px;">
-      <button onclick="showMainChat()" style="padding: 10px 20px; background-color: #E8E8E8; color: black; border: none; border-radius: 5px; cursor: pointer;">Chat with Me</button>
-      <button style="padding: 10px 20px; background-color: #D10505; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply Now</button>
+    <button onclick="showMainChat()" style="padding: 10px 20px; background-color:#5CAB3F; color: white; border: none; border-radius: 5px; cursor: pointer;">Chat with Me</button>
+    <button onclick="showSignup()" style="padding: 10px 20px; background-color: #ff0000; color: white; border: none; border-radius: 5px; cursor: pointer;">Apply Now</button>
+
     </div>
   </div>
 
@@ -395,6 +457,29 @@ function toggleSounds() {
     <img src="picture.png" alt="Profile" class="chat-toggle-image">
   </button>
 </div>
+
+<!-- Sign-Up Container -->
+<div class="signup-container chat-container" class="main-chat-container chat-container" style="display: none; background-color: #f9f9f9">
+ <div class="chat-header" style="background-color:#fff;  height:70px; ">
+  
+ <span style="cursor: pointer; font-size: 20px;" onclick="navigateToIntro()">←</span>
+      <img src="picture.png" alt="Profile">
+      <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChatMain()">—</span>
+    </div>
+    <div class="chat-content">
+    <p>Welcome to our LiveChat! Please fill in the form below before starting the chat.</p>
+    <form onsubmit="return handleSignupForm(event)">
+      <label for="name">Name:*</label>
+      <input type="text" id="name" placeholder="Enter your name"  style="color: white; ">
+      <br>
+      <label for="email">Email: (Must be a VALID E-mail address)*</label>
+      <input type="email" id="email" placeholder="Enter your email" style="color: white;">
+      <br><br>
+      <button onclick="showMainChat()"  style="padding: 10px 20px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+    </form>
+    </div>
+    <div class="powered-by-text">Powered by Npontu</div>
+  </div>
 
 
     
@@ -425,7 +510,11 @@ function toggleSounds() {
     </div>
     <div class="powered-by-text">Powered by Npontu</div>
   </div>
+
+  
   <script>
+
+
     document.addEventListener('DOMContentLoaded', function () {
       const input = document.querySelector('.chat-input');
       const sendButton = document.querySelector('.send-button');
@@ -516,7 +605,7 @@ function toggleSounds() {
 
         try {
           // Example API request - replace with your actual logic
-          const response = await fetch("https://localhost/api/v1/chat", {
+          const response = await fetch("https://example.com/api", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message }),
@@ -550,5 +639,4 @@ function toggleSounds() {
       window.handleButtonClick = handleButtonClick;
     });
   </script>
-
 
