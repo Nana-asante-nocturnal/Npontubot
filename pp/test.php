@@ -304,8 +304,6 @@ $botName = "NpontuChat";
 
 <script>
 
-    
-
   function toggleChat() {
   const chatContainer = document.querySelector('.chat-container');
   if (!chatContainer) {
@@ -402,7 +400,6 @@ function sendProposal() {
 function toggleSounds() {
   alert('SOUNDS clicked');
 }
-
 
 </script>
 
@@ -513,8 +510,6 @@ function toggleSounds() {
 
   
   <script>
-
-
     document.addEventListener('DOMContentLoaded', function () {
       const input = document.querySelector('.chat-input');
       const sendButton = document.querySelector('.send-button');
@@ -630,10 +625,6 @@ function toggleSounds() {
           sendMessage();
         }
       });
-
-      
-
-
 
       // Expose handleButtonClick to global scope for inline onclick
       window.handleButtonClick = handleButtonClick;
