@@ -516,7 +516,7 @@ function toggleSounds() {
 
         try {
           // Example API request - replace with your actual logic
-          const response = await fetch("https://example.com/api", {
+          const response = await fetch("https://localhost/api/v1/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message }),
