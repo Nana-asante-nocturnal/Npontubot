@@ -14,7 +14,7 @@ $botName = "NpontuChat";
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      background: url('bg.png') no-repeat center center fixed;
+      background: url('npontu.png') no-repeat center center fixed;
       background-size: cover;
       position: relative;
     }
@@ -205,7 +205,24 @@ $botName = "NpontuChat";
     .chat-header span {
       margin-left: 10px;
     }
-    .chat-content {
+
+    .chat-intro {
+  padding: 15px;
+  height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+}
+
+.chat-content{
+  padding: 15px;
+  height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+}
+
+    .chat-signup {
   padding: 15px;
   height: 300px;
   max-height: 500px;
@@ -219,14 +236,16 @@ $botName = "NpontuChat";
       border-radius: 10px;
       word-wrap: break-word;
       background-color: #8E8E8E;
+      margin-right: 30px;
     }
     .user-message {
-      background-color: #8E8E8E;
+      background-color: blue;
       color: #fff;
       align-self: flex-end;
+      
     }
     .bot-message {
-      background-color: #e0e0e0;
+      background-color: #8E8E8E;
       color: #333;
       align-self: flex-start;
     }
@@ -356,6 +375,21 @@ function toggleChat() {
         mainChat.style.display = 'none';
       }
     }
+
+    function toggleChatdown(){
+      const introChat = document.querySelector('.intro-chat-container');
+      const mainChat = document.querySelector('.main-chat-container');
+
+      // Show the intro chat if both are hidden
+      if (introChat.style.display === 'none' && mainChat.style.display === 'none') {
+        introChat.style.display = 'block';
+      } else {
+        // Toggle visibility of both containers
+        introChat.style.display = 'none';
+        mainChat.style.display = 'none';
+      }
+    }
+
     function handleSignupForm(event) {
     event.preventDefault(); // Prevents page refresh
     showMainChat(); // Opens the main chat container
@@ -439,7 +473,7 @@ function toggleSounds() {
       <img src="picture.png" alt="Profile">
       <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChat()">—</span>
     </div>
-    <div class="chat-content" style="padding: 20px; text-align: center; font-size: 16px;">
+    <div class="chat-intro" style="padding: 20px; text-align: center; font-size: 16px;">
       <p>Boost Your Business with us<br>
       From IT Consultancy and Managed Services to Big Data, AI to Platform and App Development! Do you want more information?</p>
       <p>My name is Peter Annan, and I am here for you.</p>
@@ -464,9 +498,9 @@ function toggleSounds() {
   
  <span style="cursor: pointer; font-size: 20px;" onclick="navigateToIntro()">←</span>
       <img src="picture.png" alt="Profile">
-      <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChatMain()">—</span>
+      <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChatdown()">—</span>
     </div>
-    <div class="chat-content">
+    <div class="chat-signup">
     <p>Welcome to our LiveChat! Please fill in the form below before starting the chat.</p>
     <form onsubmit="return handleSignupForm(event)">
       <label for="name">Name:*</label>
@@ -495,7 +529,7 @@ function toggleSounds() {
   </div>
 </div>
       <img src="picture.png" alt="Profile">
-      <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChat()">—</span>
+      <span style="margin-left: 130px; cursor: pointer;" onclick="toggleChatdown()">—</span>
     </div>
     <div class="chat-content">
       <div class="chat-bubble bot-message">
@@ -521,6 +555,7 @@ function toggleSounds() {
       const voiceButton = document.querySelector('.voice-input-button');
       const voiceStatus = document.querySelector('.voice-status');
       const chatContent = document.querySelector('.chat-content');
+      const chatIntro = document.querySelector('.chat-intro');
       const chatContainer = document.getElementById('chatContainer');
 
      
@@ -605,7 +640,7 @@ function toggleSounds() {
 
         try {
           // Example API request - replace with your actual logic
-          const response = await fetch("https://example.com/api", {
+          const response = await fetch("https://192.168.1.234:5000/api/v1/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message }),
@@ -639,4 +674,3 @@ function toggleSounds() {
       window.handleButtonClick = handleButtonClick;
     });
   </script>
-
