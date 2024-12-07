@@ -533,7 +533,7 @@ function toggleSounds() {
     </div>
     <div class="chat-content">
       <div class="chat-bubble bot-message">
-        Welcome! Please select an option above to get started:
+      Welcome! My name is Peter Annan, I am here to assist you 
       </div>
     </div>
     <div class="chat-input-container">
