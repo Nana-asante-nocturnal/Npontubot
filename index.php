@@ -640,7 +640,7 @@ function toggleSounds() {
 
         try {
           // Example API request - replace with your actual logic
-          const response = await fetch("https://192.168.1.234:5000/api/v1/chat", {
+          const response = await fetch("https://npontu-bot-production.up.railway.app", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message }),
